@@ -26,6 +26,7 @@ import com.example.springOAuth.repository.UserRepository;
 import com.example.springOAuth.response.AuthenticationResponse;
 import com.example.springOAuth.security.JwtService;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -43,6 +44,7 @@ public class AuthenticationService {
     @Autowired
     private final ModelMapper modelMapper;
 
+    @Transactional
     public AuthenticationResponse authenticate(LoginRequest request) {
         var authenticateAction = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
@@ -66,8 +68,9 @@ public class AuthenticationService {
         claims.put("roles", roles);
 
         String jwt = jwtService.generateToken(claims, user);
+        var userMapper = modelMapper.map(user, UserDto.class);
 
-        return AuthenticationResponse.builder().token(jwt).build();
+        return AuthenticationResponse.builder().token(jwt).user(userMapper).build();
 
     }
 

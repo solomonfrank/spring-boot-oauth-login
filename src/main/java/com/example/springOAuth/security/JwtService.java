@@ -20,8 +20,10 @@ import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class JwtService {
 
     @Value("${app.jwt.secret}")
@@ -35,7 +37,9 @@ public class JwtService {
     public static final String TOKEN_AUDIENCE = "springoauth-app";
 
     private Claims jwtExtractAllClaims(String token) {
+
         return Jwts.parser().verifyWith(getKeySignKey()).build().parseSignedClaims(token).getPayload();
+
     }
 
     public String extractUsername(String token) {
@@ -54,6 +58,12 @@ public class JwtService {
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
 
         return Keys.hmacShaKeyFor(keyBytes);
+
+    }
+
+    public boolean isTokenExpired(String token) {
+
+        return extractClaim(token, Claims::getExpiration).before(new Date());
 
     }
 

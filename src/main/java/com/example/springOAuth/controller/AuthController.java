@@ -50,6 +50,9 @@ public class AuthController {
     Logger logger = Logger.getLogger(AuthController.class.getName());
 
     @Operation(summary = "Login auth", description = "Authentication endpoint")
+    @ApiResponse(responseCode = "200", description = "Successful operation", content = {
+            @Content(mediaType = "application/json", schema = @Schema(implementation = AuthenticationResponse.class))
+    })
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest request) {
 
@@ -57,11 +60,6 @@ public class AuthController {
 
         return ResponseEntity.status(HttpStatus.OK).body(authResponse);
 
-    }
-
-    @GetMapping("/login")
-    public String getMethodName(String param) {
-        return "hello";
     }
 
     @Operation(summary = "Register auth", description = "Authentication endpoint")

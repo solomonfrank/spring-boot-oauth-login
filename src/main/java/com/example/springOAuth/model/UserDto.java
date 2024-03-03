@@ -15,4 +15,5 @@ public class UserDto {
     private String providerId;
     private Boolean emailVerified;
     private IdentityProvider identityProvider;
+    // private List<EventType> eventTypes;
 }

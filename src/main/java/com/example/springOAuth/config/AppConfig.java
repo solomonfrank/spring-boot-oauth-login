@@ -18,6 +18,7 @@ import com.example.springOAuth.security.JwtConfigurationFilter;
 @Configuration
 @EnableAsync
 public class AppConfig {
+
     @Autowired
     private UserRepository userRepository;
 

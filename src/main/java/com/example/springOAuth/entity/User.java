@@ -93,4 +93,16 @@ public class User implements UserDetails {
         return true;
     }
 
+    // favour ManyToOne over OneToMany
+    // @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    // // @JoinColumn(name = "user_id", referencedColumnName = "id")
+    // // private List<MeetingEventType> eventType;
+    // @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    // @JsonManagedReference
+    // private List<EventType> eventTypes;
+
+    // @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    // @JsonManagedReference
+    // private List<Booking> bookings;
+
 }
