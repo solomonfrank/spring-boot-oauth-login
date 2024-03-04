@@ -4,6 +4,8 @@ FROM openjdk:17-jdk
 
 WORKdir /app
 
+COPY . .
+
 RUN mvn clean package
 
 COPY target/*.jar /app/springOAuth.jar
