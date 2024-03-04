@@ -2,13 +2,10 @@ FROM openjdk:17-jdk
 
 WORKdir /app
 
-RUN mkdir target
-
 RUN  mvn clean package
 
-RUN  ls
+COPY target/*.jar /app/springOAuth.jar
 
-COPY  target/springOAuth.jar /app/springOAuth.jar
 
 EXPOSE 8080
 
