@@ -25,8 +25,9 @@ jobs:
           mvn -B package --file pom.xml
 
       - name: Build docker image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v5
         with:
           context: .
           dockerfile: Dockerfile
           push: false
+          tags: springoauth/app:latest
