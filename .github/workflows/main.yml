@@ -2,38 +2,28 @@ name: Build and deploy spring boot app
 
 on:
   push:
-    branches:
-      - main
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
 
 jobs:
   build:
-    name: Build and deploy spring app job
     runs-on: ubuntu-latest
+
     steps:
-      - name: checkout code
-        uses: actions/checkout@v4
+      - name: checkout
+        uses: actions/checkout@v3
 
       - name: Setup jdk
-        uses: actions/setup-java
+        uses: actions/setup-java@v3
         with:
           distribution: "corretto"
           java-version: 17
 
-      - name: Build the application
+      - name: Build spring application
         run: |
           mvn clean
           mvn -B package --file pom.xml
 
-      # - name: Login to docker
-      #   uses: docker/login-action@v3
-      #   with:
-      #     username: ${{ secrets.DOCKERHUB_USERNAME }}
-      #     password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      # - name: Build docker image
-      #   uses: docker/build-push-action@v5
-      #   with:
-      #     context: .
-      #     dockerfile: Dockerfile
-      #     push: true
-      #     tags: springoauth/app:latest
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
