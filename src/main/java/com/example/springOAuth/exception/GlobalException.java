@@ -61,8 +61,22 @@ public class GlobalException {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
     }
 
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<?> ResourceNotFoundExceptionHander(ResourceNotFoundException e) {
+        Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put("message", e.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    }
+
     @ExceptionHandler(JwtExpiredException.class)
     public ResponseEntity<?> TokenExpiredException(JwtExpiredException e) {
+        Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put("message", e.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+    }
+
+    @ExceptionHandler(IdentityLoginErrorException.class)
+    public ResponseEntity<?> IdentityLoginErrorException(IdentityLoginErrorException e) {
         Map<String, String> errorResponse = new HashMap<>();
         errorResponse.put("message", e.getMessage());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);

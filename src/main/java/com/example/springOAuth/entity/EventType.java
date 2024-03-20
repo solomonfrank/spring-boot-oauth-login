@@ -7,9 +7,11 @@ import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +19,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "tbl_event_type")
+@Table(name = "tbl_event_type", uniqueConstraints = @UniqueConstraint(columnNames = { "slug",
+}), indexes = {
+        @Index(columnList = "slug", name = "slug_index"),
+
+})
 @Data
 @AllArgsConstructor
 @Builder
@@ -31,6 +37,9 @@ public class EventType {
     @NotBlank(message = "Title is required")
     @Column(nullable = false, name = "title")
     private String title;
+
+    @Column(nullable = false, name = "slug")
+    private String slug;
 
     @Column(nullable = true, name = "description")
     private String description;

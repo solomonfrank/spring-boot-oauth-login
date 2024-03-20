@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import com.example.springOAuth.entity.IdentityProvider;
 import com.example.springOAuth.entity.User;
 import com.example.springOAuth.exception.DuplicateUserInfoException;
+import com.example.springOAuth.exception.IdentityLoginErrorException;
 import com.example.springOAuth.model.LoginRequest;
 import com.example.springOAuth.model.RegisterRequest;
 import com.example.springOAuth.model.UserDto;
@@ -46,11 +47,17 @@ public class AuthenticationService {
 
     @Transactional
     public AuthenticationResponse authenticate(LoginRequest request) {
-        var authenticateAction = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
 
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("Invalid credentials"));
+
+        if (user.getIdentityProvider().name() == IdentityProvider.GOOGLE.name()
+                || user.getIdentityProvider().name() == IdentityProvider.GITHUB.name()) {
+            throw new IdentityLoginErrorException("Your account was created using an Identity Provider.");
+        }
+
+        var authenticateAction = authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authenticateAction);
 

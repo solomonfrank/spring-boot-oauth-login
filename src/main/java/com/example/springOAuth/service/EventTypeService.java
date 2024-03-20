@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.springOAuth.entity.EventType;
 import com.example.springOAuth.entity.User;
+import com.example.springOAuth.exception.ResourceNotFoundException;
 import com.example.springOAuth.model.EventTypeRequest;
 import com.example.springOAuth.repository.EventTypeRepository;
 import com.example.springOAuth.repository.UserRepository;
@@ -30,8 +31,12 @@ public class EventTypeService {
                 User user = userRepository.findByEmail(currentUser.getEmail())
                                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
+                var slug = entity.getTitle().trim().replaceAll(" ", "-");
+
                 var enventType = EventType.builder().title(entity.getTitle()).description(entity.getDescription())
-                                .duration(entity.getDuration()).user(user).build();
+                                .duration(entity.getDuration())
+                                .slug(slug)
+                                .user(user).build();
                 var savedEvent = eventTypeRepository.save(enventType);
 
                 return modelMapper.map(savedEvent, EventTypeResponse.class);
@@ -46,6 +51,18 @@ public class EventTypeService {
                 var mappedEvent = enventType.stream().map(item -> modelMapper.map(item, EventTypeResponse.class))
                                 .toList();
                 return mappedEvent;
+        }
+
+        public EventTypeResponse findUserEventTypeBySlug(String slug, String userId) {
+
+                var eventType = eventTypeRepository.getEventTypeEmailAddressAndSlug(userId, slug)
+                                .orElseThrow(() -> new ResourceNotFoundException("Event not found."));
+
+                var response = modelMapper.map(eventType, EventTypeResponse.class);
+
+                response.setOwner(eventType.getUser().getName());
+
+                return response;
         }
 
         public EventTypeResponse updateEventHandler(Long id, EventTypeRequest entity, User currentUser) {

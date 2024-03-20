@@ -2,6 +2,7 @@ package com.example.springOAuth.response;
 
 import java.time.ZonedDateTime;
 
+import com.example.springOAuth.entity.Attendee;
 import com.example.springOAuth.entity.BookStatus;
 
 import lombok.Data;
@@ -20,5 +21,6 @@ public class BookingResponse {
     private Long attendeeId;
     private Long eventTypeId;
     private Long userId;
+    private Attendee attendee;
 
 }

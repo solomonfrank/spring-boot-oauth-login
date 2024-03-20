@@ -33,6 +33,10 @@ public class Attendee {
     @Column(nullable = false, name = "name")
     private String name;
 
+    @NotBlank
+    @Column(nullable = false, name = "phone_number")
+    private String phoneNumber;
+
     @Column(nullable = true, name = "time_zone")
     private String timeZone;
 

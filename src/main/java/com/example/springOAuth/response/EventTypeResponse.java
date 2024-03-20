@@ -14,4 +14,8 @@ public class EventTypeResponse {
     @Schema(example = "15")
     private Long duration;
     private Long userId;
+    @Schema(example = "description-mvp")
+    private String slug;
+    @Schema(example = "John doe")
+    private String owner;
 }

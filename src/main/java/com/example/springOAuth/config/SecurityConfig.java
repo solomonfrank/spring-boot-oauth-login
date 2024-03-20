@@ -76,6 +76,9 @@ public class SecurityConfig {
                                                 .requestMatchers("/api/v1/auth/**").permitAll()
                                                 .requestMatchers("/oauth2/**").permitAll()
                                                 .requestMatchers("/login/**").permitAll()
+
+                                                .requestMatchers(HttpMethod.GET, "/api/v1/event-type/{userId}/{slug}")
+                                                .permitAll()
                                                 .requestMatchers(HttpMethod.POST, "/api/v1/booking").permitAll()
                                                 .requestMatchers("/", "/error", "/csrf", "/swagger-ui.html",
                                                                 "/swagger-ui/**", "/v3/api-docs",

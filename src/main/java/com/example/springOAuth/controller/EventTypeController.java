@@ -60,6 +60,17 @@ public class EventTypeController {
                 return ResponseEntity.status(HttpStatus.OK).body(eventTypes);
         }
 
+        @ApiResponse(responseCode = "201", description = "Successful operation", content = {
+                        @Content(mediaType = "application/json", schema = @Schema(implementation = EventTypeResponse.class))
+        })
+        @GetMapping("/{userId}/{slug}")
+        public ResponseEntity<EventTypeResponse> getEventTypeBySlug(@PathVariable("userId") String userId,
+                        @PathVariable("slug") String slug) {
+
+                var eventTypes = eventTypeService.findUserEventTypeBySlug(slug, userId);
+                return ResponseEntity.status(HttpStatus.OK).body(eventTypes);
+        }
+
         @Operation(security = { @SecurityRequirement(name = "bearer-key") })
         @PutMapping("/{id}")
         public ResponseEntity<?> updateEventType(@PathVariable("id") Long id,

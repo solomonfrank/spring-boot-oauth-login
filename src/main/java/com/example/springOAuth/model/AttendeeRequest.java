@@ -13,5 +13,8 @@ public class AttendeeRequest {
     @NotBlank(message = "Name is required.")
     private String name;
 
+    @NotBlank(message = "Phone number is required.")
+    private String phoneNumber;
+
     private String timeZone;
 }
