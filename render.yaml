@@ -1,0 +1,25 @@
+# Exported from Render on 2024-03-20T23:56:27Z
+services:
+  - type: web
+    name: springoauth:latest
+    runtime: image
+    image:
+      url: docker.io/solomonfrank/springoauth:latest
+    plan: free
+    envVars:
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: POSTGRES_USERNAME
+        sync: false
+      - key: POSTGRES_PORT
+        sync: false
+      - key: POSTGRES_PASSWORD
+        sync: false
+      - key: POSTGRES_HOST
+        sync: false
+      - key: POSTGRES_DATABASE_NAME
+        sync: false
+    region: oregon
+version: "1"
