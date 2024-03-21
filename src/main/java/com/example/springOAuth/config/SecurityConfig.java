@@ -3,6 +3,7 @@ package com.example.springOAuth.config;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -44,6 +45,9 @@ public class SecurityConfig {
         private final JwtConfigurationFilter jwtFilter;
 
         private final LogoutHandler logoutHandler;
+
+        @Value("${app.cors.allowedOrigins}")
+        private final String allowedOrigins;
 
         /*
          * By default, Spring OAuth2 uses
@@ -122,7 +126,7 @@ public class SecurityConfig {
         CorsConfigurationSource corsConfiguration() {
                 CorsConfiguration config = new CorsConfiguration();
 
-                config.setAllowedOrigins(List.of("http://localhost:5173/"));
+                config.setAllowedOrigins(List.of(allowedOrigins));
                 config.addAllowedHeader("*");
                 config.addAllowedMethod("*");
                 config.setAllowCredentials(true);
