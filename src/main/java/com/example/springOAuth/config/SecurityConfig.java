@@ -47,7 +47,7 @@ public class SecurityConfig {
         private final LogoutHandler logoutHandler;
 
         @Value("${app.cors.allowedOrigins}")
-        private final String allowedOrigins;
+        private String allowedOrigins;
 
         /*
          * By default, Spring OAuth2 uses
