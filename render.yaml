@@ -24,4 +24,4 @@ services:
       - key: SPRING_PROFILES_ACTIVE
         sync: false
     region: oregon
-version: "2"
+version: "1"
