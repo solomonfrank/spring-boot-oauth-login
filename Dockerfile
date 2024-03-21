@@ -15,4 +15,4 @@ COPY target/*.jar /app/springOAuth.jar
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "springOAuth.jar", ]
+CMD ["java", "-jar", "springOAuth.jar" ]
