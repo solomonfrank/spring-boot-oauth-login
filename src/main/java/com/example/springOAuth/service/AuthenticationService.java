@@ -11,7 +11,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -71,6 +70,7 @@ public class AuthenticationService {
                 .collect(Collectors.toList());
 
         claims.put("name", user.getName());
+        claims.put("fullName", user.getName());
         claims.put("preferred_username", user.getUsername());
         claims.put("roles", roles);
 
@@ -93,7 +93,7 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .emailVerified(false).identityProvider(IdentityProvider.LOCAL).build();
 
-        UserDetails savedUser = userRepository.save(user);
+        User savedUser = userRepository.save(user);
         var token = jwtService.generateToken(savedUser);
         var userMapper = modelMapper.map(savedUser, UserDto.class);
 
