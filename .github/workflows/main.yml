@@ -18,6 +18,7 @@ jobs:
       POSTGRES_DATABASE_URL: ${{ secrets.POSTGRES_DATABASE_URL }}
       SPRING_PROFILES_ACTIVE: prod
       CLOUDINARY_URL: ${{ secrets.CLOUDINARY_URL }}
+      PAYSTACK_SECRET_KEY: ${{ secrets.PAYSTACK_SECRET_KEY }}
 
     steps:
       - name: checkout

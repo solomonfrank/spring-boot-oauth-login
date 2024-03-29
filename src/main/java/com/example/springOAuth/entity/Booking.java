@@ -14,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -72,6 +73,10 @@ public class Booking {
     @JoinColumn(name = "user_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_USER_BOOKING_TYPE"))
     // @JsonBackReference
     private User user;
+
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "payment_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_BOOKING_PAYMENT"))
+    private Payment payment;
 
     @PrePersist
     public void onPrePersist() {
