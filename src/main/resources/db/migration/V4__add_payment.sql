@@ -5,6 +5,7 @@
        add constraint FK_BOOKING_PAYMENT
        foreign key (payment_id)
        references tbl_payment;
+       
 
 CREATE TABLE IF NOT EXISTS tbl_payment (
         id bigserial not null,
