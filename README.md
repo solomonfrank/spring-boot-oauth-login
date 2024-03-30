@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This is the simple Bookme backend application that allows a host to set up an event and attendee to book the event and also pay for the booking using the payment service `Paystack`. The frontend can found here [Bookme client](https://github.com/solomonfrank/spring-boot-oauth-login-client)
+This is the simple Bookme backend application that allows a host to set up an event and attendee to book the event and also pay for the booking using the payment service `Paystack`. The frontend can found here [Bookme client](https://github.com/solomonfrank/spring-boot-oauth-login-client). This application demonstrates the use of the various tech stacks with the `CI/CD` configured with `Github Actions` for automatic deployment. The application is deployed on [Render](https://dashboard.render.com/)
 
 ## Tech stack
 
