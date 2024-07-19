@@ -83,7 +83,7 @@ public class AuthenticationService {
 
     public AuthenticationResponse registerHandler(RegisterRequest request) {
 
-        if (userRepository.existsByEmail(request.getEmail())) {
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
 
             throw new DuplicateUserInfoException("Username or email is already taken");
 
