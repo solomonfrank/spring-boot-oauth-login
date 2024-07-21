@@ -1,8 +1,10 @@
 package com.example.springOAuth.service;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -11,6 +13,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import jakarta.mail.MessagingException;
+import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 
@@ -22,6 +25,9 @@ public class EmailService {
 
     @Autowired
     private TemplateEngine templateEngine;
+
+    @Value("${spring.application.name}")
+    private String appName;
 
     public void sendMail(String to, String subject, String body) throws MessagingException {
 
@@ -35,13 +41,20 @@ public class EmailService {
         javaMailSender.send(message);
     }
 
-    public void sendEmailVerificationLink(String to, String body) throws MessagingException {
+    public void sendEmailVerificationLink(String to, String body)
+            throws MessagingException, UnsupportedEncodingException {
+
         MimeMessage message = javaMailSender.createMimeMessage();
+        // MimeMessage message = new MimeMessage(session);
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
         helper.setTo(to);
         helper.setSubject("Email Verification");
+
         // helper.setText(body);
-        helper.setFrom("noreply@springaouth.com");
+        // helper.setFrom("noreply@springaouth.com");
+        helper.setFrom(new InternetAddress("no_reply@springbooking.com", appName));
+
+        helper.setReplyTo(new InternetAddress("no_reply@springbooking.com"));
 
         Context context = new Context();
         context.setVariable("name", to);

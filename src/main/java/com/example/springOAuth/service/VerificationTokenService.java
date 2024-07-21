@@ -1,5 +1,6 @@
 package com.example.springOAuth.service;
 
+import java.io.UnsupportedEncodingException;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
@@ -27,7 +28,8 @@ public class VerificationTokenService {
     private UserRepository userRepository;
 
     @Async
-    public void sendEmailVerification(String email, String targetUrl) throws MessagingException {
+    public void sendEmailVerification(String email, String targetUrl)
+            throws MessagingException, UnsupportedEncodingException {
         var token = UUID.randomUUID().toString();
         var verificationToken = VerificationToken.builder().identifier(email).token(token)
                 .expires(ZonedDateTime.now().plusDays(1))
