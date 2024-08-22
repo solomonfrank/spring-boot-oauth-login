@@ -57,11 +57,12 @@ public class JwtConfigurationFilter extends OncePerRequestFilter {
             // !t.isExpired() && t.isRevoked())
             // .orElse(false);
             if (!jwtService.isTokenExpired(jwt)) {
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails,
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                        userDetails,
                         null, userDetails.getAuthorities());
 
-                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authToken);
+                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authentication);
 
             }
         }

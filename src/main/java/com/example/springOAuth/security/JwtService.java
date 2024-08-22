@@ -94,6 +94,7 @@ public class JwtService {
 
         Map<String, Object> customUser = new HashMap<>();
         customUser.put("fullName", userDetails.getName());
+        customUser.put("userId", userDetails.getId());
         return generateToken(customUser, userDetails);
 
     }

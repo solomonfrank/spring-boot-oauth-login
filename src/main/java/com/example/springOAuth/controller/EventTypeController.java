@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.springOAuth.entity.User;
 import com.example.springOAuth.model.EventTypeRequest;
 import com.example.springOAuth.response.EventTypeResponse;
+import com.example.springOAuth.service.BookingService;
 import com.example.springOAuth.service.EventTypeService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,6 +37,9 @@ public class EventTypeController {
 
         @Autowired
         private EventTypeService eventTypeService;
+
+        @Autowired
+        private BookingService bookingService;
 
         @Operation(security = { @SecurityRequirement(name = "bearer-key") })
         @ApiResponse(responseCode = "201", description = "Successful operation", content = {
@@ -90,6 +94,15 @@ public class EventTypeController {
                 Map<String, String> response = new HashMap<>();
                 response.put("message", "Success");
                 return ResponseEntity.status(HttpStatus.OK).body(response);
+        }
+
+        @GetMapping("/{userId}/analysis")
+        public ResponseEntity<?> getAnalysis(@PathVariable("userId") Long userId) {
+
+                var response = bookingService.getAnalysisHandler(userId);
+
+                return ResponseEntity.status(HttpStatus.OK).body(response);
+
         }
 
 }

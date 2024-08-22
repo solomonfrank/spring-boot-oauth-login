@@ -146,6 +146,34 @@
 			<artifactId>okhttp</artifactId>
 			<version>4.2.2</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.mnode.ical4j/ical4j -->
+		<dependency>
+			<groupId>org.mnode.ical4j</groupId>
+			<artifactId>ical4j</artifactId>
+			<version>4.0.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.google.api-client/google-api-client -->
+		<dependency>
+			<groupId>com.google.api-client</groupId>
+			<artifactId>google-api-client</artifactId>
+			<version>1.35.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.apis</groupId>
+			<artifactId>google-api-services-calendar</artifactId>
+			<version>v3-rev411-1.25.0</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.google.oauth-client</groupId>
+			<artifactId>google-oauth-client-jetty</artifactId>
+			<version>1.36.0</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>

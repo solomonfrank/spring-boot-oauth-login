@@ -4,6 +4,7 @@ import java.time.ZonedDateTime;
 
 import com.example.springOAuth.entity.Attendee;
 import com.example.springOAuth.entity.BookStatus;
+import com.example.springOAuth.model.UserDto;
 
 import lombok.Data;
 
@@ -21,6 +22,9 @@ public class BookingResponse {
     private Long attendeeId;
     private Long eventTypeId;
     private Long userId;
+    private UserDto user;
     private Attendee attendee;
+    private PaymentResponse paymentResponse;
+    private String meetingUrl;
 
 }

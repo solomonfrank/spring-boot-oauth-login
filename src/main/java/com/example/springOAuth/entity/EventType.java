@@ -1,5 +1,7 @@
 package com.example.springOAuth.entity;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -40,6 +42,15 @@ public class EventType {
 
     @Column(nullable = false, name = "slug")
     private String slug;
+
+    @Column(nullable = true, name = "location")
+    private String location;
+
+    @Column(name = "price")
+    private BigDecimal price;
+
+    @Column(name = "currency", nullable = true)
+    private String currency;
 
     @Column(nullable = true, name = "description")
     private String description;

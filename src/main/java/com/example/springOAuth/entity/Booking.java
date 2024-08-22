@@ -74,7 +74,7 @@ public class Booking {
     // @JsonBackReference
     private User user;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "payment_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_BOOKING_PAYMENT"))
     private Payment payment;
 

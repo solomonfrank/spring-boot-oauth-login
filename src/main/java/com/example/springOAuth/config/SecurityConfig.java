@@ -80,10 +80,14 @@ public class SecurityConfig {
                                                 .requestMatchers("/api/v1/auth/**").permitAll()
                                                 .requestMatchers("/oauth2/**").permitAll()
                                                 .requestMatchers("/login/**").permitAll()
-
+                                                .requestMatchers("/api/apps/**").permitAll()
+                                                .requestMatchers("/api/integration/googlecalender/callback").permitAll()
                                                 .requestMatchers(HttpMethod.GET, "/api/v1/event-type/{userId}/{slug}")
                                                 .permitAll()
+                                                .requestMatchers(HttpMethod.GET, "/api/v1/payment/verify/{reference}")
+                                                .permitAll()
                                                 .requestMatchers(HttpMethod.POST, "/api/v1/booking").permitAll()
+                                                .requestMatchers(HttpMethod.GET, "/api/v1/booking").permitAll()
                                                 .requestMatchers("/", "/error", "/csrf", "/swagger-ui.html",
                                                                 "/swagger-ui/**", "/v3/api-docs",
                                                                 "/v3/api-docs/**")

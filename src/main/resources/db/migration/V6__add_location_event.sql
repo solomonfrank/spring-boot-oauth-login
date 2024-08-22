@@ -1,0 +1,2 @@
+ALTER TABLE IF EXISTS tbl_event_type 
+ADD  COLUMN location  VARCHAR(255);

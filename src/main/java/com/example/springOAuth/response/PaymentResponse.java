@@ -18,4 +18,5 @@ public class PaymentResponse {
     private boolean status;
     private PaymentProvider paymentProvider;
     private String authorizationUrl;
+    private String accessCode;
 }

@@ -1,5 +1,7 @@
 package com.example.springOAuth.response;
 
+import java.math.BigDecimal;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -18,4 +20,8 @@ public class EventTypeResponse {
     private String slug;
     @Schema(example = "John doe")
     private String owner;
+    @Schema(example = "3000")
+    private BigDecimal price;
+    @Schema(example = "false")
+    private boolean paymentEnabled;
 }

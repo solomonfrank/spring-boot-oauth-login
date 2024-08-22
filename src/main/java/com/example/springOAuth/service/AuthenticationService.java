@@ -73,6 +73,7 @@ public class AuthenticationService {
         claims.put("fullName", user.getName());
         claims.put("preferred_username", user.getUsername());
         claims.put("roles", roles);
+        claims.put("userId", user.getId());
 
         String jwt = jwtService.generateToken(claims, user);
         var userMapper = modelMapper.map(user, UserDto.class);

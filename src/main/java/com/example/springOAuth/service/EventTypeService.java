@@ -1,6 +1,8 @@
 package com.example.springOAuth.service;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,7 @@ public class EventTypeService {
                 var enventType = EventType.builder().title(entity.getTitle()).description(entity.getDescription())
                                 .duration(entity.getDuration())
                                 .slug(slug)
+                                .price(entity.getPrice())
                                 .user(user).build();
                 var savedEvent = eventTypeRepository.save(enventType);
 
@@ -48,9 +51,16 @@ public class EventTypeService {
                                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
                 var enventType = eventTypeRepository.findByUser(user);
-                var mappedEvent = enventType.stream().map(item -> modelMapper.map(item, EventTypeResponse.class))
+                var mappedEvent = enventType.stream().map(item -> {
+
+                        return modelMapper.map(item, EventTypeResponse.class);
+                })
                                 .toList();
-                return mappedEvent;
+                return mappedEvent.stream().map(item -> {
+                        var price = Optional.ofNullable(item.getPrice()).orElse(BigDecimal.ZERO);
+                        item.setPaymentEnabled(price.compareTo(BigDecimal.ZERO) > 0);
+                        return item;
+                }).toList();
         }
 
         public EventTypeResponse findUserEventTypeBySlug(String slug, String userId) {

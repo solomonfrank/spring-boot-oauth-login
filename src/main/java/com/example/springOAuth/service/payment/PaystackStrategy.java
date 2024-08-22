@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.springOAuth.entity.PaymentProvider;
 import com.example.springOAuth.entity.PaymentStatus;
+import com.example.springOAuth.exception.CredentialException;
 import com.example.springOAuth.exception.ResourceNotFoundException;
 import com.example.springOAuth.feignClient.PaystackClient;
 import com.example.springOAuth.model.PaymentRequest;
@@ -34,11 +35,20 @@ public class PaystackStrategy implements IPaymentStrategy {
 
     @Override
     public PaymentResponse initializePayment(PaymentRequest request) {
+
+        if (secrekKey.isEmpty()) {
+            throw new CredentialException("Missing payment credentials");
+        }
+
+        var amount = Double.parseDouble(request.getAmount()) * 100; // converting to kobo from paystack
+
+        request.setAmount(String.valueOf(amount));
         var response = paystackClient.initializeTransaction("Bearer " + secrekKey, request)
                 .getBody();
         var paymentResponse = PaymentResponse.builder().amount(request.getAmount())
                 .paymentProvider(PaymentProvider.PAYSTACK)
                 .authorizationUrl(response.getData().getAuthorization_url())
+                .accessCode(response.getData().getAccess_code())
                 .reference(response.getData().getReference()).status(response.isStatus()).build();
 
         System.out.println(response);

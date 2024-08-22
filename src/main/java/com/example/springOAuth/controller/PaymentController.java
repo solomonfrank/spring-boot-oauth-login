@@ -1,5 +1,8 @@
 package com.example.springOAuth.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +39,11 @@ public class PaymentController {
     @GetMapping("/verify/{reference}")
     public ResponseEntity<?> verifyTransaction(@PathVariable("reference") String reference) {
         paymentService.verifyTransaction(reference);
-        return ResponseEntity.status(HttpStatus.OK).body("verified");
+        Map<String, String> response = new HashMap<>();
+
+        response.put("status", "succes");
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
 }
